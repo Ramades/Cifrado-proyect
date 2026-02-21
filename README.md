@@ -71,3 +71,6 @@ Sin embargo, la historia de la criptografía nos enseña que la seguridad es una
 1.  **Al-Kindi** (801–873). *On Deciphering Cryptographic Messages*.
 2.  **Singh, S.** (1999). *The Code Book*. Editorial Fourth Estate.
 3.  **Standard ASCII** - *Manual de Referencia Técnica de IBM*.
+4.  López Farjeat, L. X. (2008). Al-Kindī. Philosophica: Enciclopedia filosófica on line. URL: http://www.philosophica.info/archivo/2008/voces/al-kindi/Al-Kindi.html
+5.  Cifrado César. Wikipedia, la enciclopedia libre. https://es.wikipedia.org/wiki/Cifrado_César
+6.  Cifrado Atbash. dCode.fr. https://www.dcode.fr/cifrado-atbash
