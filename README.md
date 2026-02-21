@@ -13,11 +13,11 @@
 
 
 ##  Introducción
-El criptoanálisis moderno tiene sus raíces en el trabajo de **Abū Yūsuf Yaʻqūb ibn Isḥāq al-Kindī** (siglo IX). Su obra *Risalah fi Istikhraj al-Mu'amma* (Manuscrito sobre el desciframiento de mensajes criptográficos) introdujo el **análisis de frecuencias**. 
+El criptoanálisis moderno tiene sus raíces en el trabajo de Abū Yūsuf Yaʻqūb ibn Isḥāq al-Kindī (siglo IX). Su obra Risalah fi Istikhraj al-Mu'amma (Manuscrito sobre el desciframiento de mensajes criptográficos) introdujo el análisis de frecuencias. 
 
-Al-Kindi demostró que en cualquier lenguaje natural, la distribución de letras no es uniforme. En los sistemas de encriptación simple como **César** (sustitución por desplazamiento) y **Atbash** (sustitución por espejo):
+Al-Kindi demostró que en cualquier lenguaje natural, la distribución de letras no es uniforme. En los sistemas de encriptación simple como César (sustitución por desplazamiento) y Atbash (sustitución por espejo):
 * Los patrones estadísticos del lenguaje se mantienen intactos.
-* La utilización de estos métodos hoy es **inviable** para la protección de datos reales debido a la facilidad de ataques de fuerza bruta (solo 25 combinaciones en César A-Z) y ataques estadísticos que rompen el código en milisegundos.
+* La utilización de estos métodos hoy es inviable para la protección de datos reales debido a la facilidad de ataques de fuerza bruta (solo 25 combinaciones en César A-Z) y ataques estadísticos que rompen el código en milisegundos.
 
 
 
