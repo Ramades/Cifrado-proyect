@@ -95,6 +95,7 @@
     <textarea id="resultado" readonly></textarea>
 
     <button class="secondary-btn" onclick="usarResultado()"> Usar como origen</button>
+    <button class="secondary-btn" onclick="irADocumentacion()">Ver Documentación Técnica</button>
 </div>
 
 <script>
@@ -175,7 +176,9 @@ function usarResultado() {
     document.getElementById("texto").value = document.getElementById("resultado").value;
     document.getElementById("resultado").value = "";
 }
-
+function irADocumentacion() {
+    window.location.href = "documentacion.html";
+}
 window.onload = () => seleccionarPreset('ascii');
 </script>
 
