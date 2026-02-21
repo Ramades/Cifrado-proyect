@@ -2,7 +2,7 @@
 
 ---
 
-**UNIVERSIDAD AUTÓNOMA DE Aguascalientes ** 
+**UNIVERSIDAD AUTÓNOMA DE AGUASCALIENTES ** 
 
 **Departamento de Ciencias Básicas** 
 **Seguridad en Sistemas**
