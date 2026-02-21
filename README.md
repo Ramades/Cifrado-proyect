@@ -21,12 +21,27 @@
 6. [Bibliografía](#bibliografía)
 
 ## Introducción
-El criptoanálisis moderno tiene sus raíces en el trabajo de Abū Yūsuf Yaʻqūb ibn Isḥāq al-Kindī (siglo IX). Su obra *Risalah fi Istikhraj al-Mu'amma* (Manuscrito sobre el desciframiento de mensajes criptográficos) introdujo el análisis de frecuencias. 
+El origen del criptoanálisis científico se remonta al siglo IX con el polímata árabe **Abū Yūsuf Yaʻqūb ibn Isḥāq al-Kindī**, considerado el padre de la ruptura de códigos. En su tratado *Risalah fi Istikhraj al-Mu'amma* (Manuscrito sobre el desciframiento de mensajes criptográficos), Al-Kindi revolucionó la seguridad de la información al describir por primera vez la técnica del **análisis de frecuencias**. 
 
-Al-Kindi demostró que en cualquier lenguaje natural, la distribución de letras no es uniforme. En los sistemas de encriptación simple como César (sustitución por desplazamiento) y Atbash (sustitución por espejo):
-* Los patrones estadísticos del lenguaje se mantienen intactos.
-* La utilización de estos métodos hoy es inviable para la protección de datos reales debido a la facilidad de ataques de fuerza bruta (solo 25 combinaciones en César A-Z) y ataques estadísticos que rompen el código en milisegundos.
+### El Aporte de Al-Kindi al Hackeo de Sistemas
+Antes de Al-Kindi, se creía que un mensaje cifrado mediante sustitución simple era virtualmente inexpugnable. Él demostró que en cualquier lenguaje natural, la distribución de caracteres no es aleatoria. Al observar que ciertas letras aparecen con una frecuencia predecible (como la 'e' y la 'a' en español), Al-Kindi probó que si el criptoanalista conoce el idioma original, puede correlacionar las letras más frecuentes del texto cifrado con las del lenguaje común. 
 
+Este descubrimiento proporcionó la primera "llave maestra" para hackear sistemas de encriptación, permitiendo que cualquier cifrado de sustitución monoalfabética fuera vulnerable a un atacante con suficientes datos y paciencia.
+
+
+
+### Inviabilidad de César y Atbash en la Actualidad
+En el contexto de la seguridad informática contemporánea, los cifrados César y Atbash han quedado relegados exclusivamente a fines educativos o recreativos debido a dos factores críticos:
+
+1. **Vulnerabilidad Estadística:** Como estos métodos solo intercambian un carácter por otro de forma fija (sustitución simple), mantienen intacta la estructura estadística del mensaje original. Un atacante moderno puede automatizar un análisis de frecuencias y romper el código en fracciones de segundo.
+
+2. **Espacio de Claves Reducido:**
+   * El **Cifrado César** tiene un espacio de claves extremadamente pequeño (normalmente 25 en un alfabeto estándar). Esto permite realizar un ataque de **fuerza bruta** probando todas las combinaciones posibles de manera instantánea.
+   * El **Cifrado Atbash** ni siquiera utiliza una clave secreta; su lógica es fija y pública (espejo del alfabeto), por lo que no ofrece ninguna seguridad real, solo una ofuscación básica.
+
+
+
+En la era del procesamiento masivo de datos, donde la potencia de cálculo se mide en teraflops, estos algoritmos no ofrecen resistencia alguna. La protección de datos reales hoy exige algoritmos de sustitución polialfabética o sistemas asimétricos donde la relación entre el texto plano y el cifrado sea matemáticamente compleja y no lineal.
 ## Objetivo
 Desarrollar un entorno web capaz de procesar cifrados César y Atbash sobre un conjunto dinámico basado en el código ASCII, permitiendo la manipulación del módulo matemático para comprender la flexibilidad de los algoritmos de sustitución.
 
