@@ -2,8 +2,10 @@
 
 ---
 
-**UNIVERSIDAD AUTÓNOMA DE CIUDAD JUÁREZ** **Departamento de Ciencias Básicas** **Seguridad en Sistemas**
+**UNIVERSIDAD AUTÓNOMA DE Aguascalientes ** 
 
+**Departamento de Ciencias Básicas** 
+**Seguridad en Sistemas**
 **Estudiante:** Angel Ramses Martinez Herrera - 264153  
 **Catedrático:** Mtro. Arturo Ocampo Silva  
 **Fecha:** 20/02/2026
