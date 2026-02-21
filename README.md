@@ -2,7 +2,7 @@
 
 ---
 
-## 📖 Índice
+##  Índice
 1. [Introducción](#introducción)
 2. [Objetivo](#objetivo)
 3. [Desarrollo Técnico](#desarrollo-técnico)
@@ -46,11 +46,8 @@ Donde:
 
 ---
 
-##  Documentación del Programa (Ingenio)
-De acuerdo con los requerimientos de "No Impresión", este repositorio actúa como la documentación viva del código. 
+##  Documentación del Programa 
 
-> **Nota de Seguridad:** Para acceder a la explicación detallada de las funciones privadas del sistema, puede utilizar el propio software para descifrar el siguiente mensaje (Método Atbash, Módulo 95):
-> `[Inserta aquí un texto cifrado con tu programa para que el profe lo descifre]`
 
 ### Instrucciones de Uso
 1.  **Selección de Conjunto:** Haga clic en el campo "Conjunto de Caracteres" para elegir entre ASCII (95), Alfabeto (26) o Numérico (10).
