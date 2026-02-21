@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Documentación Técnica | Sistema de Cifrado Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #00ffcc; --bg: #0a0a0a; --card: #141414; --text: #e0e0e0; --code-bg: #000; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.8; margin: 0; padding: 40px 20px; }
+        .container { max-width: 1000px; margin: auto; background: var(--card); padding: 50px; border-radius: 20px; border: 1px solid #222; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+        h1 { font-family: 'Orbitron'; font-size: 2.5em; color: #fff; text-align: center; margin-bottom: 50px; border-bottom: 2px solid var(--primary); padding-bottom: 20px; }
+        h2 { font-family: 'Orbitron'; font-size: 1.5em; color: var(--primary); margin-top: 60px; border-left: 4px solid var(--primary); padding-left: 15px; }
+        h3 { color: #fff; margin-top: 30px; }
+        p { color: #aaa; margin-bottom: 20px; text-align: justify; }
+        .highlight { color: var(--primary); font-weight: 600; }
+        .code-container { background: var(--code-bg); border-radius: 10px; border: 1px solid #333; margin: 30px 0; overflow: hidden; }
+        pre { padding: 25px; margin: 0; font-family: 'Consolas', monospace; font-size: 0.9em; color: var(--primary); overflow-x: auto; }
+        .section-box { background: rgba(0, 255, 204, 0.03); border: 1px solid rgba(0, 255, 204, 0.1); padding: 25px; border-radius: 12px; margin: 30px 0; }
+        .formula { text-align: center; font-family: 'Orbitron'; color: var(--primary); font-size: 1.2em; margin: 20px 0; padding: 15px; background: #000; border: 1px dashed #333; }
+        footer { margin-top: 80px; text-align: center; color: #444; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+    <h1>DOCUMENTACIÓN TÉCNICA</h1>
+    <p style="text-align:center;">Sistema de Cifrado Pro – Análisis Funcional y Lógico del Código Fuente</p>
+</header>
+
+<section>
+    <h2>1. Propósito del Sistema</h2>
+    <p>
+        El Sistema de Cifrado Pro es una aplicación web que implementa algoritmos clásicos de 
+        <span class="highlight">criptografía monoalfabética</span>, específicamente los métodos 
+        <b>César</b> y <b>Atbash</b>.
+    </p>
+    <p>
+        Su objetivo es permitir al usuario cifrar y descifrar mensajes utilizando un alfabeto
+        personalizable y aplicando aritmética modular para garantizar circularidad matemática.
+    </p>
+</section>
+
+<section>
+    <h2>2. Gestión del Universo de Caracteres (PRESETS)</h2>
+    <p>
+        El sistema define alfabetos preconfigurados almacenados en un objeto constante llamado <span class="highlight">PRESETS</span>.
+        Cada clave representa un conjunto de caracteres.
+    </p>
+
+    <div class="code-container">
+<pre>const PRESETS = {
+    ascii: " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ...",
+    az: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    minus: "abcdefghijklmnopqrstuvwxyz",
+    az_minus: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+    num: "0123456789"
+};</pre>
+    </div>
+
+    <p>
+        El tamaño del conjunto define el valor del <span class="highlight">Módulo (M)</span>, que es esencial en la aritmética modular.
+    </p>
+</section>
+
+<section>
+    <h2>3. Flujo General del Sistema</h2>
+
+    <div class="section-box">
+        <p><b>1.</b> Usuario selecciona o escribe un conjunto.</p>
+        <p><b>2.</b> Se calcula automáticamente M = longitud del conjunto.</p>
+        <p><b>3.</b> Usuario escribe el mensaje.</p>
+        <p><b>4.</b> Selecciona método (César o Atbash).</p>
+        <p><b>5.</b> Se ejecuta la función <span class="highlight">procesar()</span>.</p>
+        <p><b>6.</b> Se muestra el resultado transformado.</p>
+    </div>
+</section>
+
+<section>
+    <h2>4. Función Principal: procesar(modo)</h2>
+
+    <div class="code-container">
+<pre>function procesar(modo) {
+
+    const texto = document.getElementById("texto").value;
+    const tipo = document.getElementById("tipo").value;
+    let shift = parseInt(document.getElementById("shift").value) || 0;
+    const conjunto = inputConjunto.value;
+
+    const M = conjunto.length;
+    shift = shift % M;
+
+    let res = "";
+
+    for (let i = 0; i < texto.length; i++) {
+
+        let char = texto[i];
+        let idx = conjunto.indexOf(char);
+
+        if (idx !== -1) {
+
+            if (tipo === "cesar") {
+                let s = (modo === "descifrar") ? -shift : shift;
+                let nuevoIdx = (idx + s) % M;
+                if (nuevoIdx < 0) nuevoIdx += M;
+                res += conjunto[nuevoIdx];
+
+            } else {
+                res += conjunto[(M - 1) - idx];
+            }
+
+        } else {
+            res += char;
+        }
+    }
+
+    document.getElementById("resultado").value = res;
+}</pre>
+    </div>
+
+    <h3>Descripción Técnica</h3>
+    <p>
+        La función recorre el texto carácter por carácter. Si el carácter pertenece al conjunto,
+        aplica el algoritmo seleccionado. Si no pertenece, lo deja intacto.
+    </p>
+</section>
+
+<section>
+    <h2>5. Lógica Matemática del Sistema</h2>
+
+    <h3>5.1 Cifrado César</h3>
+    <div class="formula">E(x) = (x + k) mod M</div>
+
+    <p>
+        Donde:
+        <br>• x = índice del carácter
+        <br>• k = desplazamiento
+        <br>• M = tamaño del alfabeto
+    </p>
+
+    <h3>5.2 Descifrado César</h3>
+    <div class="formula">D(x) = (x - k) mod M</div>
+
+    <h3>5.3 Cifrado Atbash</h3>
+    <div class="formula">E(x) = (M - 1) - x</div>
+
+    <p>
+        Atbash es simétrico, por lo tanto el mismo proceso sirve para cifrar y descifrar.
+    </p>
+</section>
+
+<section>
+    <h2>6. Otras Funciones Importantes</h2>
+
+    <h3>actualizarUI()</h3>
+    <div class="code-container">
+<pre>function actualizarUI() {
+    const size = inputConjunto.value.length;
+    document.getElementById("tamano").textContent = size;
+    inputModulo.value = size;
+}</pre>
+    </div>
+
+    <p>
+        Sincroniza el tamaño del alfabeto con el módulo mostrado en pantalla.
+    </p>
+
+    <h3>usarResultado()</h3>
+    <div class="code-container">
+<pre>function usarResultado() {
+    document.getElementById("texto").value =
+    document.getElementById("resultado").value;
+    document.getElementById("resultado").value = "";
+}</pre>
+    </div>
+
+    <p>
+        Permite reutilizar el resultado como nuevo mensaje de entrada.
+    </p>
+</section>
+
+<section>
+    <h2>7. Manual de Uso</h2>
+
+    <div class="section-box">
+        <p><b>Paso 1:</b> Seleccione el conjunto de caracteres.</p>
+        <p><b>Paso 2:</b> Ingrese el mensaje.</p>
+        <p><b>Paso 3:</b> Seleccione el método.</p>
+        <p><b>Paso 4:</b> Si usa César, defina el salto.</p>
+        <p><b>Paso 5:</b> Presione CIFRAR o DESCIFRAR.</p>
+        <p><b>Paso 6:</b> Para revertir, use el mismo conjunto y salto.</p>
+    </div>
+</section>
+
+<section>
+    <h2>8. Conclusión Técnica</h2>
+    <p>
+        El sistema implementa correctamente principios de aritmética modular y transformación
+        monoalfabética. Su arquitectura es lineal, eficiente y de complejidad O(n), donde n es
+        la longitud del mensaje.
+    </p>
+</section>
+
+<footer>
+    DOCUMENTACIÓN TÉCNICA OFICIAL | SISTEMA DE CIFRADO PRO | 2026
+</footer>
+
+</div>
+
+</body>
+</html>
