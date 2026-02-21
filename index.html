@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Cifrado Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; background: #000; font-family: 'Orbitron', sans-serif; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { width: 90%; max-width: 750px; background: #111; padding: 30px; border-radius: 15px; box-shadow: 0 0 20px #ffffff33; border: 1px solid #fff; position: relative; }
+        h2 { text-align: center; color: #00ffcc; text-shadow: 0 0 10px #00ffcc; margin-bottom: 25px; }
+        
+        label { margin-top: 15px; display: block; font-size: 0.85em; color: #aaa; text-transform: uppercase; }
+        
+        .input-wrapper { position: relative; width: 100%; }
+        
+        textarea, input, select { 
+            width: 100%; padding: 12px; margin-top: 5px; background: #000; border: 1px solid #333; 
+            color: #fff; border-radius: 8px; font-family: 'Orbitron', sans-serif; box-sizing: border-box; 
+        }
+        
+        input:focus, textarea:focus { border-color: #00ffcc; outline: none; }
+        
+        /* MENU FLOTANTE PERSONALIZADO */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #1a1a1a;
+            border: 1px solid #00ffcc;
+            border-radius: 8px;
+            z-index: 10;
+            display: none; /* Se activa con JS */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            margin-top: 5px;
+        }
+
+        .dropdown-item {
+            padding: 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #333;
+            transition: 0.2s;
+            font-size: 0.9em;
+        }
+
+        .dropdown-item:last-child { border-bottom: none; }
+        .dropdown-item:hover { background: #00ffcc; color: #000; }
+        .dropdown-item span { display: block; font-size: 0.7em; opacity: 0.7; }
+
+        .info-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; background: #1a1a1a; padding: 10px; border-radius: 8px; border: 1px solid #222; }
+        .highlight { color: #00ffcc; font-weight: bold; }
+
+        .buttons { display: flex; justify-content: space-between; margin-top: 20px; }
+        button { width: 48%; padding: 14px; border-radius: 8px; border: none; background: #fff; color: #000; font-weight: bold; cursor: pointer; transition: 0.3s; font-family: 'Orbitron'; }
+        button:hover { background: #00ffcc; box-shadow: 0 0 15px #00ffcc66; }
+        
+        .secondary-btn { width: 100%; margin-top: 12px; background: #1a1a1a; color: #fff; border: 1px solid #444; }
+        textarea { height: 80px; resize: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Cripto</h2>
+
+    <label>Conjunto de Caracteres:</label>
+    <div class="input-wrapper" id="wrapperConjunto">
+        <input type="text" id="conjunto" autocomplete="off" placeholder="Escribe o selecciona un conjunto...">
+        
+        <div id="menuOpciones" class="dropdown-menu">
+            <div class="dropdown-item" onclick="seleccionarPreset('ascii')">
+                ASCII Extendido (95)
+                <span>" !#$%&'()*+...xyz{|}~"</span>
+            </div>
+            <div class="dropdown-item" onclick="seleccionarPreset('az')">
+                Alfabeto A-Z (26)
+                <span>"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span>
+            </div>
+            <div class="dropdown-item" onclick="seleccionarPreset('num')">
+                Numérico (10)
+                <span>"0123456789"</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="info-row">
+        <span>Tamaño: <span id="tamano" class="highlight">0</span></span>
+        <div>
+            <span>Módulo (M): </span>
+            <input type="number" id="modulo" style="width: 70px; display: inline; margin: 0; padding: 5px;">
+        </div>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #222; margin: 20px 0;">
+
+    <label>Mensaje:</label>
+    <textarea id="texto"></textarea>
+
+    <div style="display: flex; gap: 15px;">
+        <div style="flex: 2;">
+            <label>Método:</label>
+            <select id="tipo" onchange="toggleShift()">
+                <option value="cesar">César</option>
+                <option value="atbash">Atbash</option>
+            </select>
+        </div>
+        <div id="shiftContainer" style="flex: 1;">
+            <label>Salto:</label>
+            <input type="number" id="shift" value="3">
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button onclick="procesar('cifrar')">CIFRAR</button>
+        <button onclick="procesar('descifrar')">DESCIFRAR</button>
+    </div>
+
+    <label>Resultado:</label>
+    <textarea id="resultado" readonly></textarea>
+
+    <button class="secondary-btn" onclick="usarResultado()">Usar como origen</button>
+</div>
+
+<script>
+const PRESETS = {
+    ascii: " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~",
+    az: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    num: "0123456789"
+};
+
+const inputConjunto = document.getElementById("conjunto");
+const inputModulo = document.getElementById("modulo");
+const menu = document.getElementById("menuOpciones");
+
+// 1. Mostrar menú al dar CLIC o FOCO
+inputConjunto.addEventListener("focus", () => {
+    menu.style.display = "block";
+});
+
+// 2. Cerrar menú si se hace clic fuera
+document.addEventListener("click", (e) => {
+    if (!document.getElementById("wrapperConjunto").contains(e.target)) {
+        menu.style.display = "none";
+    }
+});
+
+// 3. Selección de opción
+function seleccionarPreset(tipo) {
+    const valor = PRESETS[tipo];
+    inputConjunto.value = valor;
+    inputModulo.value = valor.length;
+    menu.style.display = "none";
+    actualizarUI();
+}
+
+// 4. Sincronización Manual (Si el usuario escribe)
+inputConjunto.addEventListener("input", () => {
+    inputModulo.value = inputConjunto.value.length;
+    // Ocultamos el menú si el usuario empieza a escribir algo propio
+    if(inputConjunto.value === "") menu.style.display = "block";
+    else menu.style.display = "none";
+    actualizarUI();
+});
+
+inputModulo.addEventListener("input", actualizarUI);
+
+function actualizarUI() {
+    document.getElementById("tamano").textContent = inputConjunto.value.length;
+}
+
+// Inicializar por defecto
+window.onload = () => {
+    seleccionarPreset('ascii');
+};
+
+// --- Lógica de Cifrado ---
+function toggleShift() {
+    document.getElementById("shiftContainer").style.display = 
+        (document.getElementById("tipo").value === "cesar") ? "block" : "none";
+}
+
+function procesar(modo) {
+    const texto = document.getElementById("texto").value;
+    const tipo = document.getElementById("tipo").value;
+    const shift = parseInt(document.getElementById("shift").value) || 0;
+    const conjunto = inputConjunto.value;
+    const M = parseInt(inputModulo.value) || 0;
+
+    if (M <= 0) return;
+
+    let res = texto.split('').map(char => {
+        let idx = conjunto.indexOf(char);
+        if (idx !== -1 && idx < M) {
+            if (tipo === "cesar") {
+                let s = (modo === "descifrar") ? -shift : shift;
+                let nuevo = (idx + s) % M;
+                if (nuevo < 0) nuevo += M;
+                return conjunto[nuevo];
+            } else {
+                return conjunto[(M - 1) - idx];
+            }
+        }
+        return char;
+    }).join('');
+    document.getElementById("resultado").value = res;
+}
+
+function usarResultado() {
+    document.getElementById("texto").value = document.getElementById("resultado").value;
+}
+</script>
+</body>
+</html>
