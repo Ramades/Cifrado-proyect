@@ -61,7 +61,9 @@ la documentacion de la aplicacion web esta disponible en https://ramades.github.
 ---
 
 ##  Conclusión
-Este proyecto evidencia que la robustez de un sistema no reside solo en el algoritmo, sino en el tamaño del espacio de claves y la entropía del mensaje. Aunque César y Atbash son pilares históricos, el análisis de frecuencias de Al-Kindi los convirtió en herramientas puramente didácticas en la era de la computación cuántica y el cifrado AES.
+El presente proyecto ofrece una incursión fundamental en los pilares de la criptografía. Es evidente que algoritmos como César y Atbash, aunque revolucionarios en su contexto histórico, resultan obsoletos frente a las capacidades de procesamiento actuales. Hoy en día, la seguridad de la información descansa sobre modelos matemáticos de una complejidad exponencialmente mayor, como los sistemas asimétricos y de curva elíptica.
+
+Sin embargo, la historia de la criptografía nos enseña que la seguridad es una carrera armamentista perpetua: lo que hoy consideramos inquebrantable, mañana será vulnerable ante el avance de la computación cuántica y el aumento de la capacidad de cómputo global. El desarrollo de este software no solo ha sido un ejercicio de programación, sino una lección sobre la naturaleza efímera de la privacidad. Este proyecto resalta que, sin importar la complejidad del algoritmo, el eslabón más fuerte siempre será el entendimiento profundo de la lógica que protege nuestros datos. Al final, cifrar es mucho más que mover letras; es el esfuerzo humano por preservar la libertad de la información en un mundo digitalmente expuesto.
 
 ---
 
