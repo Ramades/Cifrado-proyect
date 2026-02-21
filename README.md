@@ -61,7 +61,7 @@ Este proyecto evidencia que la robustez de un sistema no reside solo en el algor
 
 ---
 
-## 📚 Bibliografía
+##  Bibliografía
 1.  **Al-Kindi** (801–873). *On Deciphering Cryptographic Messages*.
 2.  **Singh, S.** (1999). *The Code Book*. Editorial Fourth Estate.
 3.  **Standard ASCII** - *Manual de Referencia Técnica de IBM*.
