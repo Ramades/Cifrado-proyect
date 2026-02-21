@@ -47,6 +47,9 @@ Donde:
 ---
 
 ##  Documentación del Programa 
+la aplicacion web de cifrado esta disponible en  https://ramades.github.io/Cifrado-proyect/
+la documentacion de la aplicacion web esta disponible en https://ramades.github.io/Cifrado-proyect/documentacion.html
+
 
 
 ### Instrucciones de Uso
