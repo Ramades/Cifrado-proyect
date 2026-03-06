@@ -1,185 +1,419 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Sistema de Cifrado</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body { margin: 0; padding: 0; background: #000; font-family: 'Orbitron', sans-serif; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { width: 90%; max-width: 750px; background: #111; padding: 30px; border-radius: 15px; box-shadow: 0 0 20px #ffffff33; border: 1px solid #fff; position: relative; }
-        h2 { text-align: center; color: #00ffcc; text-shadow: 0 0 10px #00ffcc; margin-bottom: 25px; }
-        label { margin-top: 15px; display: block; font-size: 0.85em; color: #aaa; text-transform: uppercase; }
-        .input-wrapper { position: relative; width: 100%; }
-        textarea, input, select { width: 100%; padding: 12px; margin-top: 5px; background: #000; border: 1px solid #333; color: #fff; border-radius: 8px; font-family: 'Orbitron', sans-serif; box-sizing: border-box; }
-        input:focus, textarea:focus { border-color: #00ffcc; outline: none; }
+<meta charset="UTF-8">
+<title>Sistema de Cifrado</title>
 
-        .dropdown-menu { position: absolute; top: 100%; left: 0; width: 100%; background: #1a1a1a; border: 1px solid #00ffcc; border-radius: 8px; z-index: 10; display: none; box-shadow: 0 10px 20px rgba(0,0,0,0.5); margin-top: 5px; }
-        .dropdown-item { padding: 12px; cursor: pointer; border-bottom: 1px solid #333; transition: 0.2s; font-size: 0.9em; }
-        .dropdown-item:hover { background: #00ffcc; color: #000; }
-        .dropdown-item span { display: block; font-size: 0.7em; opacity: 0.7; }
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
 
-        .info-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; background: #1a1a1a; padding: 10px; border-radius: 8px; border: 1px solid #222; }
-        .highlight { color: #00ffcc; font-weight: bold; }
-        .buttons { display: flex; justify-content: space-between; margin-top: 20px; }
-        button { width: 48%; padding: 14px; border-radius: 8px; border: none; background: #fff; color: #000; font-weight: bold; cursor: pointer; transition: 0.3s; font-family: 'Orbitron'; }
-        button:hover { background: #00ffcc; box-shadow: 0 0 15px #00ffcc66; }
-        .secondary-btn { width: 100%; margin-top: 12px; background: #1a1a1a; color: #fff; border: 1px solid #444; }
-        textarea { height: 80px; resize: none; }
-    </style>
+<style>
+
+body{
+margin:0;
+padding:0;
+background:#000;
+font-family:'Orbitron',sans-serif;
+color:#fff;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
+.container{
+width:90%;
+max-width:750px;
+background:#111;
+padding:30px;
+border-radius:15px;
+box-shadow:0 0 20px #ffffff33;
+border:1px solid #fff;
+position:relative;
+}
+
+h2{
+text-align:center;
+color:#00ffcc;
+text-shadow:0 0 10px #00ffcc;
+margin-bottom:25px;
+}
+
+label{
+margin-top:15px;
+display:block;
+font-size:.85em;
+color:#aaa;
+text-transform:uppercase;
+}
+
+.input-wrapper{
+position:relative;
+width:100%;
+}
+
+textarea,input,select{
+width:100%;
+padding:12px;
+margin-top:5px;
+background:#000;
+border:1px solid #333;
+color:#fff;
+border-radius:8px;
+font-family:'Orbitron',sans-serif;
+box-sizing:border-box;
+}
+
+input:focus,textarea:focus{
+border-color:#00ffcc;
+outline:none;
+}
+
+.dropdown-menu{
+position:absolute;
+top:100%;
+left:0;
+width:100%;
+background:#1a1a1a;
+border:1px solid #00ffcc;
+border-radius:8px;
+z-index:10;
+display:none;
+box-shadow:0 10px 20px rgba(0,0,0,.5);
+margin-top:5px;
+}
+
+.dropdown-item{
+padding:12px;
+cursor:pointer;
+border-bottom:1px solid #333;
+transition:.2s;
+font-size:.9em;
+}
+
+.dropdown-item:hover{
+background:#00ffcc;
+color:#000;
+}
+
+.dropdown-item span{
+display:block;
+font-size:.7em;
+opacity:.7;
+}
+
+.info-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:10px;
+background:#1a1a1a;
+padding:10px;
+border-radius:8px;
+border:1px solid #222;
+}
+
+.highlight{
+color:#00ffcc;
+font-weight:bold;
+}
+
+.buttons{
+display:flex;
+justify-content:space-between;
+margin-top:20px;
+}
+
+button{
+width:48%;
+padding:14px;
+border-radius:8px;
+border:none;
+background:#fff;
+color:#000;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+font-family:'Orbitron';
+}
+
+button:hover{
+background:#00ffcc;
+box-shadow:0 0 15px #00ffcc66;
+}
+
+.secondary-btn{
+width:100%;
+margin-top:12px;
+background:#1a1a1a;
+color:#fff;
+border:1px solid #444;
+}
+
+textarea{
+height:80px;
+resize:none;
+}
+
+</style>
 </head>
+
 <body>
 
 <div class="container">
-    <h2>Sistema de cifrado</h2>
 
-    <label>Conjunto de Caracteres:</label>
-    <div class="input-wrapper" id="wrapperConjunto">
-        <input type="text" id="conjunto" autocomplete="off" placeholder="Selecciona o escribe un conjunto...">
-        <div id="menuOpciones" class="dropdown-menu">
-            <div class="dropdown-item" onclick="seleccionarPreset('ascii')">
-                ASCII Extendido (95)
-                <span>Caracteres imprimibles completos</span>
-            </div>
-            <div class="dropdown-item" onclick="seleccionarPreset('az')">
-                Alfabeto A-Z (26)
-                <span>Solo letras mayúsculas</span>
-            </div>
-            <div class="dropdown-item" onclick="seleccionarPreset('minus')">
-                Solo minúsculas (26)
-                <span>a-z</span>
-            </div>
-            <div class="dropdown-item" onclick="seleccionarPreset('az_minus')">
-                Mayúsculas + Minúsculas (52)
-                <span>A-Z + a-z</span>
-            </div>
-            <div class="dropdown-item" onclick="seleccionarPreset('num')">
-                Numérico (10)
-                <span>Solo números 0-9</span>
-            </div>
-        </div>
-    </div>
-    
-    <div class="info-row">
-        <span>Tamaño Alfabeto: <span id="tamano" class="highlight">0</span></span>
-        <div>
-            <span>Módulo (M): </span>
-            <input type="number" id="modulo" readonly style="width: 70px; display: inline; margin: 0; padding: 5px;">
-        </div>
-    </div>
+<h2>Sistema de cifrado</h2>
 
-    <hr style="border: 0; border-top: 1px solid #222; margin: 20px 0;">
+<label>Conjunto de Caracteres:</label>
 
-    <label>Mensaje:</label>
-    <textarea id="texto"></textarea>
+<div class="input-wrapper" id="wrapperConjunto">
 
-    <div style="display: flex; gap: 15px;">
-        <div style="flex: 2;">
-            <label>Método:</label>
-            <select id="tipo" onchange="toggleShift()">
-                <option value="cesar">César</option>
-                <option value="atbash">Atbash</option>
-            </select>
-        </div>
-        <div id="shiftContainer" style="flex: 1;">
-            <label>Salto:</label>
-            <input type="number" id="shift" value="3">
-        </div>
-    </div>
+<input type="text" id="conjunto" autocomplete="off" placeholder="Selecciona o escribe un conjunto...">
 
-    <div class="buttons">
-        <button onclick="procesar('cifrar')">CIFRAR</button>
-        <button onclick="procesar('descifrar')">DESCIFRAR</button>
-    </div>
+<div id="menuOpciones" class="dropdown-menu">
 
-    <label>Resultado:</label>
-    <textarea id="resultado" readonly></textarea>
+<div class="dropdown-item" onclick="seleccionarPreset('ascii')">
+ASCII Extendido (95)
+<span>Caracteres imprimibles completos</span>
+</div>
 
-    <button class="secondary-btn" onclick="usarResultado()"> Usar como origen</button>
-    <button class="secondary-btn" onclick="irADocumentacion()">Ver Documentación Técnica</button>
+<div class="dropdown-item" onclick="seleccionarPreset('az')">
+Alfabeto A-Z (26)
+<span>Solo letras mayúsculas</span>
+</div>
+
+<div class="dropdown-item" onclick="seleccionarPreset('minus')">
+Solo minúsculas (26)
+<span>a-z</span>
+</div>
+
+<div class="dropdown-item" onclick="seleccionarPreset('az_minus')">
+Mayúsculas + Minúsculas (52)
+<span>A-Z + a-z</span>
+</div>
+
+<div class="dropdown-item" onclick="seleccionarPreset('num')">
+Numérico (10)
+<span>Solo números 0-9</span>
+</div>
+
+</div>
+</div>
+
+<div class="info-row">
+
+<span>Tamaño Alfabeto:
+<span id="tamano" class="highlight">0</span>
+</span>
+
+<div>
+<span>Módulo (M):</span>
+<input type="number" id="modulo" readonly style="width:70px;display:inline;margin:0;padding:5px;">
+</div>
+
+</div>
+
+<hr style="border:0;border-top:1px solid #222;margin:20px 0;">
+
+<label>Mensaje:</label>
+<textarea id="texto"></textarea>
+
+<div style="display:flex;gap:15px;">
+
+<div style="flex:2;">
+<label>Método:</label>
+<select id="tipo" onchange="toggleShift()">
+<option value="cesar">César</option>
+<option value="atbash">Atbash</option>
+</select>
+</div>
+
+<div id="shiftContainer" style="flex:1;">
+<label>Salto:</label>
+<input type="number" id="shift" value="3">
+</div>
+
+</div>
+
+<div class="buttons">
+<button onclick="procesar('cifrar')">CIFRAR</button>
+<button onclick="procesar('descifrar')">DESCIFRAR</button>
+</div>
+
+<button class="secondary-btn" onclick="fuerzaBruta()">Ver todos los desplazamientos</button>
+
+<label>Resultado:</label>
+<textarea id="resultado" readonly></textarea>
+
+<button class="secondary-btn" onclick="usarResultado()">Usar como origen</button>
+
+<button class="secondary-btn" onclick="irADocumentacion()">Ver Documentación Técnica</button>
+
 </div>
 
 <script>
-const PRESETS = {
-    ascii: " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~",
-    az: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-    minus: "abcdefghijklmnopqrstuvwxyz",
-    az_minus: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-    num: "0123456789"
+
+const PRESETS={
+ascii:" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~",
+az:"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+minus:"abcdefghijklmnopqrstuvwxyz",
+az_minus:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+num:"0123456789"
 };
 
-const inputConjunto = document.getElementById("conjunto");
-const inputModulo = document.getElementById("modulo");
-const menu = document.getElementById("menuOpciones");
+const inputConjunto=document.getElementById("conjunto");
+const inputModulo=document.getElementById("modulo");
+const menu=document.getElementById("menuOpciones");
 
-inputConjunto.addEventListener("focus", () => menu.style.display = "block");
-document.addEventListener("click", (e) => {
-    if (!document.getElementById("wrapperConjunto").contains(e.target)) menu.style.display = "none";
+inputConjunto.addEventListener("focus",()=>menu.style.display="block");
+
+document.addEventListener("click",(e)=>{
+if(!document.getElementById("wrapperConjunto").contains(e.target))
+menu.style.display="none";
 });
 
-function seleccionarPreset(tipo) {
-    inputConjunto.value = PRESETS[tipo];
-    actualizarUI();
-    menu.style.display = "none";
+function seleccionarPreset(tipo){
+
+inputConjunto.value=PRESETS[tipo];
+actualizarUI();
+menu.style.display="none";
+
 }
 
-inputConjunto.addEventListener("input", actualizarUI);
+inputConjunto.addEventListener("input",actualizarUI);
 
-function actualizarUI() {
-    const size = inputConjunto.value.length;
-    document.getElementById("tamano").textContent = size;
-    inputModulo.value = size;
+function actualizarUI(){
+
+const size=inputConjunto.value.length;
+
+document.getElementById("tamano").textContent=size;
+inputModulo.value=size;
+
 }
 
-function toggleShift() {
-    document.getElementById("shiftContainer").style.visibility = 
-        (document.getElementById("tipo").value === "cesar") ? "visible" : "hidden";
+function toggleShift(){
+
+document.getElementById("shiftContainer").style.visibility=
+(document.getElementById("tipo").value==="cesar")?"visible":"hidden";
+
 }
 
-function procesar(modo) {
-    const texto = document.getElementById("texto").value;
-    const tipo = document.getElementById("tipo").value;
-    let shift = parseInt(document.getElementById("shift").value) || 0;
-    const conjunto = inputConjunto.value;
+function procesar(modo){
 
-    if (conjunto.length === 0) {
-        alert("El conjunto no puede estar vacío.");
-        return;
-    }
+const texto=document.getElementById("texto").value;
+const tipo=document.getElementById("tipo").value;
+let shift=parseInt(document.getElementById("shift").value)||0;
+const conjunto=inputConjunto.value;
 
-    const M = conjunto.length;
-    shift = shift % M;
-
-    let res = "";
-
-    for (let i = 0; i < texto.length; i++) {
-        let char = texto[i];
-        let idx = conjunto.indexOf(char);
-
-        if (idx !== -1) {
-            if (tipo === "cesar") {
-                let s = (modo === "descifrar") ? -shift : shift;
-                let nuevoIdx = (idx + s) % M;
-                if (nuevoIdx < 0) nuevoIdx += M;
-                res += conjunto[nuevoIdx];
-            } else {
-                res += conjunto[(M - 1) - idx];
-            }
-        } else {
-            res += char;
-        }
-    }
-
-    document.getElementById("resultado").value = res;
+if(conjunto.length===0){
+alert("El conjunto no puede estar vacío.");
+return;
 }
 
-function usarResultado() {
-    document.getElementById("texto").value = document.getElementById("resultado").value;
-    document.getElementById("resultado").value = "";
+const M=conjunto.length;
+
+shift=shift%M;
+
+let res="";
+
+for(let i=0;i<texto.length;i++){
+
+let char=texto[i];
+let idx=conjunto.indexOf(char);
+
+if(idx!==-1){
+
+if(tipo==="cesar"){
+
+let s=(modo==="descifrar")?-shift:shift;
+
+let nuevoIdx=(idx+s)%M;
+
+if(nuevoIdx<0) nuevoIdx+=M;
+
+res+=conjunto[nuevoIdx];
+
+}else{
+
+res+=conjunto[(M-1)-idx];
+
 }
-function irADocumentacion() {
-    window.location.href = "documentacion.html";
+
+}else{
+
+res+=char;
+
 }
-window.onload = () => seleccionarPreset('ascii');
+
+}
+
+document.getElementById("resultado").value=res;
+
+}
+
+function fuerzaBruta(){
+
+const texto=document.getElementById("texto").value;
+const conjunto=inputConjunto.value;
+
+if(texto.length===0){
+alert("Escribe un mensaje primero.");
+return;
+}
+
+const M=conjunto.length;
+
+let resultados="";
+
+for(let shift=0;shift<M;shift++){
+
+let res="";
+
+for(let i=0;i<texto.length;i++){
+
+let char=texto[i];
+let idx=conjunto.indexOf(char);
+
+if(idx!==-1){
+
+let nuevoIdx=(idx-shift)%M;
+
+if(nuevoIdx<0) nuevoIdx+=M;
+
+res+=conjunto[nuevoIdx];
+
+}else{
+
+res+=char;
+
+}
+
+}
+
+resultados+="Shift "+shift+": "+res+"\n";
+
+}
+
+document.getElementById("resultado").value=resultados;
+
+}
+
+function usarResultado(){
+
+document.getElementById("texto").value=
+document.getElementById("resultado").value;
+
+document.getElementById("resultado").value="";
+
+}
+
+function irADocumentacion(){
+
+window.location.href="documentacion.html";
+
+}
+
+window.onload=()=>seleccionarPreset('ascii');
+
 </script>
 
 </body>
